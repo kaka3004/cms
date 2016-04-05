@@ -1,0 +1,7 @@
+import {I{{Model}}} from 'shared/models/{{model}}.d';
+import {BaseDocument} from 'server/models/base/base.d';
+
+export interface I{{Model}}Document extends I{{Model}}, BaseDocument<I{{Model}}Document> {
+  replaceAttributes(attrs: I{{Model}}): void;
+  updateAttributes(attrs: I{{Model}}): void;
+}

@@ -1,0 +1,213 @@
+import {BaseActions} from 'client/actions/base/base-actions';
+import {{{Model}}_ACTIONS} from 'client/constants/actions-constants';
+import {I{{Model}}Api} from 'client/apis/{{model}}/{{model}}-api.d';
+
+export class {{Model}}Actions extends BaseActions {
+  constructor(getState, public {{model}}Api: I{{Model}}Api) {
+    super(getState);
+  }
+
+  /**
+   * Find {{model}} by id
+   * @param {string} instanceName   Instance name e.g. detailsPage
+   * @param {string} id             {{Model}} id
+   */
+  public findById(instanceName, id) {
+    if(this.state.{{model}}s[instanceName].isFetching ||
+      this.state.{{model}}s[instanceName].isUpdating) {
+      return;
+    }
+    //
+    this.onNext({
+      type: {{Model}}_ACTIONS.FETCH_REQUEST,
+      payload: {id, instanceName}
+    });
+    //
+    let onSuccess = ({ result, entities }) => {
+      this.saveEntity(entities);
+      this.onNext({
+        type: {{Model}}_ACTIONS.FETCH_SUCCESS,
+        payload: {result, instanceName}
+      });
+    }
+    //
+    let onError = (error) => {
+      this.onNext({
+        type: {{Model}}_ACTIONS.FETCH_FAILURE,
+        payload: {error, instanceName}
+      })
+    }
+    //
+    this.{{model}}Api.findById(id).subscribe(onSuccess, onError);
+  }
+
+
+  /**
+   * Get all {{model}}s
+   */
+  public all() {
+    if(this.state.{{model}}s.list.isFetching) {
+      return;
+    }
+    //
+    this.onNext({ type: {{Model}}_ACTIONS.FETCH_LIST_REQUEST });
+    //
+    let onSuccess = ({entities, result}) => {
+      this.saveEntity(entities);
+      this.onNext({
+        type: {{Model}}_ACTIONS.FETCH_LIST_SUCCESS,
+        payload: {result}
+      });
+    }
+
+    let onError = (error) => {
+      this.onNext({
+        type: {{Model}}_ACTIONS.FETCH_LIST_FAILURE,
+        payload: {error}
+      })
+    }
+
+    this.{{model}}Api.all().subscribe(onSuccess, onError);
+  }
+
+  /**
+   * Create new {{model}}
+   * @param {string} instanceName   Instance name e.g. detailsPage
+   * @param {Object} attributes     {{Model}} attributes
+   */
+  public create(instanceName, attributes) {
+    if(this.state.{{model}}s[instanceName].isFetching) {
+      return;
+    }
+    
+    this.onNext({
+      type: {{Model}}_ACTIONS.CREATE_REQUEST,
+      payload: {instanceName}
+    });
+
+    let onSuccess = ({entities, result}) => {
+      this.saveEntity(entities);
+      this.onNext({
+        type: {{Model}}_ACTIONS.CREATE_SUCCESS,
+        payload: {result, instanceName}
+      });
+    }
+
+    let onError = (error) => {
+      this.onNext({
+        type: {{Model}}_ACTIONS.CREATE_FAILURE,
+        payload: {error, instanceName}
+      })
+    }
+
+    this.{{model}}Api.create(attributes).subscribe(onSuccess, onError);
+  }
+
+  /**
+   * Update {{model}}
+   * @param {string} instanceName   Instance name e.g. detailsPage
+   * @param {string} id         {{Model}} id
+   * @param {Object} attributes {{Model}} attributes
+   */
+  public update(instanceName, id, attributes) {
+    if(this.state.{{model}}s[instanceName].isUpdating) {
+      return;
+    }
+    
+    this.onNext({
+      type: {{Model}}_ACTIONS.UPDATE_REQUEST,
+      payload: {id}
+    });
+
+    let onSuccess = ({entities, result}) => {
+      this.saveEntity(entities);
+      this.onNext({
+        type: {{Model}}_ACTIONS.UPDATE_SUCCESS,
+        payload: {result}
+      });
+    }
+
+    let onError = (error) => {
+      this.onNext({
+        type: {{Model}}_ACTIONS.UPDATE_FAILURE,
+        payload: {error}
+      })
+    }
+
+    this.{{model}}Api.update(id, attributes).subscribe(onSuccess, onError);
+  }
+
+  /**
+   * Create new {{model}}
+   * @param {string} instanceName   Instance name e.g. detailsPage
+   * @param {string} id         {{Model}} id
+   * @param {Object} attributes     {{Model}} attributes
+   */
+  public replace(instanceName, id, attributes) {
+    if(this.state.{{model}}s[instanceName].isUpdating) {
+      return;
+    }
+    
+    this.onNext({
+      type: {{Model}}_ACTIONS.REPLACE_REQUEST,
+      payload: {id}
+    });
+
+    let onSuccess = ({entities, result}) => {
+      this.saveEntity(entities);
+      this.onNext({
+        type: {{Model}}_ACTIONS.REPLACE_SUCCESS,
+        payload: {result, instanceName}
+      });
+    }
+
+    let onError = (error) => {
+      this.onNext({
+        type: {{Model}}_ACTIONS.REPLACE_FAILURE,
+        payload: {error, instanceName}
+      })
+    }
+
+    this.{{model}}Api.replace(id, attributes).subscribe(onSuccess, onError);
+  }
+
+  /**
+   * Create new {{model}}
+   * @param {string} instanceName   Instance name e.g. detailsPage
+   * @param {string} id             {{Model}} id
+   */
+  public remove(id) {
+    this.onNext({
+      type: {{Model}}_ACTIONS.DELETE_REQUEST,
+      payload: {id}
+    });
+
+    let onSuccess = () => {
+      this.removeFromEntity('{{model}}s', id);
+      this.onNext({
+        type: {{Model}}_ACTIONS.DELETE_SUCCESS,
+        payload: {id}
+      });
+    }
+
+    let onError = (error) => {
+      this.onNext({
+        type: {{Model}}_ACTIONS.CREATE_FAILURE,
+        payload: {error}
+      })
+    }
+
+    this.{{model}}Api.remove(id).subscribe(onSuccess, onError);
+  }
+
+  /**
+   * Reset instance
+   * @param {string} instanceName {{Model}} instance name
+   */
+  public reset(instanceName) {
+    this.onNext({
+      type: {{Model}}_ACTIONS.RESET,
+      payload: {instanceName}
+    });
+  }
+}

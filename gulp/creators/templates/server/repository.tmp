@@ -1,0 +1,21 @@
+import {Promise} from 'mongoose';
+import {I{{Model}}Repository} from 'server/repositories/{{model}}/{{model}}-repository.d';
+import {{{Model}}Model} from 'server/models/{{model}}/{{model}}-model';
+import {I{{Model}}} from 'shared/models/{{model}}.d';
+
+export class {{Model}}Repository implements I{{Model}}Repository {
+
+  public all() {
+    return {{Model}}Model.find({}).exec();
+  }
+
+  public findById(id) {
+    return {{Model}}Model.findById(id).exec();
+  }
+
+  public create(attributes: I{{Model}}) {
+    var {{model}} = new {{Model}}Model();
+    {{model}}.replaceAttributes(attributes);
+    return {{model}}.promiseToSave();
+  }
+}

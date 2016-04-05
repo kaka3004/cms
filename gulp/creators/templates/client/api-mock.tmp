@@ -1,0 +1,11 @@
+import * as sinon from 'sinon';
+import {I{{Model}}Api} from 'client/apis/{{model}}/{{model}}-api.d';
+
+export class {{Model}}ApiMock implements I{{Model}}Api {
+	public all = sinon.stub();
+	public findById = sinon.stub();
+	public create = sinon.stub();
+	public update = sinon.stub();
+	public replace = sinon.stub();
+	public remove = sinon.stub();
+}

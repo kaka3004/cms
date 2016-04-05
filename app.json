@@ -1,0 +1,16 @@
+{
+  "name": "Goodsense CMS",
+  "description": "",
+  "scripts": {},
+  "env": {
+    "MONGODB_URL": {
+      "required": true
+    }
+  },
+  "addons": [],
+  "buildpacks": [
+    {
+      "url": "urn:buildpack:heroku/nodejs"
+    }
+  ]
+}

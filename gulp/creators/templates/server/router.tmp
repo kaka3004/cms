@@ -1,0 +1,24 @@
+import {Router} from 'express';
+import {{{Model}}Controller} from 'server/controllers/{{model}}/{{model}}-controller';
+
+export function configure{{Model}}Router({{model}}Controller: {{Model}}Controller) {
+  const {{model}}Router = Router();
+
+  {{model}}Router.param('{{model}}Id', {{model}}Controller.fetch.bind({{model}}Controller));
+
+  // Get all {{models}}
+  {{model}}Router.get('', {{model}}Controller.all.bind({{model}}Controller));
+  // Get a {{model}} by id
+  {{model}}Router.get('/:{{model}}Id', {{model}}Controller.findById.bind({{model}}Controller));
+  // Create new {{model}}
+  {{model}}Router.post('/', {{model}}Controller.create.bind({{model}}Controller));
+  // Replace {{model}} attributes
+  {{model}}Router.put('/:{{model}}Id', {{model}}Controller.replace.bind({{model}}Controller));
+  // Update a {{model}} attributes
+  {{model}}Router.patch('/:{{model}}Id', {{model}}Controller.update.bind({{model}}Controller));
+  // Delete a {{model}}
+  {{model}}Router.delete('/:{{model}}Id', {{model}}Controller.remove.bind({{model}}Controller));
+
+  return {{model}}Router;
+}
+

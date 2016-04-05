@@ -1,0 +1,37 @@
+import {BaseApi} from 'client/apis/base/base-api';
+import {Schema, arrayOf} from 'normalizr';
+import {I{{Model}}} from 'shared/models/{{model}}';
+import {I{{Model}}Api} from 'client/apis/{{model}}/{{model}}-api.d';
+
+export class {{Model}}Api extends BaseApi implements I{{Model}}Api {
+
+  getSchema() {
+    return new Schema('{{models}}', {
+      idAttribute: '_id'
+    });
+  }
+
+  all() {
+    return this.get<I{{Model}}>('{{model}}');
+  }
+
+  findById(id) {
+    return this.get<I{{Model}}[]>(`{{model}}/${id}`);
+  }
+
+  replace(id, attributes) {
+    return this.put<I{{Model}}>(`{{model}}/${id}`, attributes);
+  }
+
+  update(id, attributes) {
+    return this.patch<I{{Model}}>(`{{model}}/${id}`, attributes);
+  }
+
+  create(attributes) {
+    return this.post<I{{Model}}>(`{{model}}`, attributes);
+  }
+
+  remove(id) {
+    return this.delete(`{{model}}/${id}`);
+  }
+}

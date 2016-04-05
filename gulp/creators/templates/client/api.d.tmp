@@ -1,0 +1,4 @@
+import {I{{Model}}Api as IShared{{Model}}Api} from 'shared/apis/{{model}}.d';
+
+export interface I{{Model}}Api extends IShared{{Model}}Api {
+}

@@ -1,0 +1,8 @@
+import {expect} from 'chai';
+import {{{Model}}Repository} from 'server/repositories/{{model}}/{{model}}-repository';
+
+describe('{{Model}}Repository', function() {
+  it('should exists', function () {
+  	expect({{Model}}Repository).to.exist;
+  });
+});

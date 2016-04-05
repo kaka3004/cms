@@ -1,0 +1,8 @@
+import * as sinon from 'sinon';
+import {I{{Model}}Repository} from 'server/repositories/{{model}}/{{model}}-repository.d';
+
+export class {{Model}}RepositoryMock implements I{{Model}}Repository {
+	public all = sinon.stub();
+	public findById = sinon.stub();
+	public create = sinon.stub();
+}

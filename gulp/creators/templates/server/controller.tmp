@@ -1,0 +1,66 @@
+import {BaseController} from 'server/controllers/base/base-controller';
+import {ValidationError, ModelNotFoundError} from 'server/errors';
+import {I{{Model}}Repository} from 'server/repositories/{{model}}/{{model}}-repository.d';
+import {I{{Model}}Controller} from 'server/controllers/{{model}}/{{model}}-controller.d';
+
+export class {{Model}}Controller extends BaseController implements I{{Model}}Controller {
+  
+  constructor(private {{model}}Repository: I{{Model}}Repository) {
+    super();
+  }
+
+  fetch(req, res, next, id) {
+    this.{{model}}Repository.findById(id)
+      .onFulfill(({{model}}) => {
+        if(! {{model}}) {
+          throw new ModelNotFoundError(id);
+        }
+        req.{{model}} = {{model}};
+        next();
+      }).onReject(next);
+  }
+
+  all(req, res, next) {
+    this.{{model}}Repository.all()
+      .onFulfill(({{model}}s) => {
+        this.successResponse(res, {{model}}s);
+      }).onReject(next);
+  }
+
+  findById(req, res, next) {
+    this.successResponse(res, req.{{model}});
+  }
+
+  create(req, res, next) {
+    this.{{model}}Repository.create(req.body)
+      .then(({{model}}) => {
+        this.successResponse(res, {{model}});
+      }).then(null, next);
+  }
+
+  replace(req, res, next) {
+    req.{{model}}.replaceAttributes(req.body);
+    req.{{model}}.promiseToSave()
+      .then(({{model}}) => {
+        this.successResponse(res, {{model}});
+      })
+      .then(null, next);
+  }
+
+  update(req, res, next) {
+    req.{{model}}.updateAttributes(req.body);
+    req.{{model}}.promiseToSave()
+      .then(({{model}}) => {
+        this.successResponse(res, {{model}});
+      })
+      .then(null, next);
+  }
+
+  remove(req, res, next) {
+    req.{{model}}.promiseToRemove()
+      .then(({{model}}) => {
+        this.successResponse(res, {{model}});
+      })
+      .then(null, next);
+  }
+}

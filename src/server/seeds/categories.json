@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Camp",
+    "status": "enabled"
+  },
+  {
+    "title": "Fishing",
+    "status": "enabled"
+  },
+  {
+    "title": "Snowboarding",
+    "status": "enabled"
+  },
+  {
+    "title": "Skiing",
+    "status": "enabled"
+  },
+  {
+    "title": "Cycling",
+    "status": "enabled"
+  },
+  {
+    "title": "Canoe | Kayak",
+    "status": "enabled"
+  },
+  {
+    "title": "Climbing",
+    "status": "enabled"
+  },
+  {
+    "title": "Trekking",
+    "status": "enabled"
+  },
+  {
+    "title": "Music Festival",
+    "status": "enabled"
+  },
+  {
+    "title": "Trail Running",
+    "status": "enabled"
+  },
+  {
+    "title": "Surfing",
+    "status": "enabled"
+  },
+  {
+    "title": "Gear Lover",
+    "status": "enabled"
+  }
+]

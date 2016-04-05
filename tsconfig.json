@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"jsx": "react",
+		"module": "amd",
+    "removeComments": true,
+    "outDir": ".tmp",
+    "rootDir": "src"
+	},
+	"exclude": [
+		"node_modules",
+		".tmp",
+		"typings/main",
+		"typings/main.d.ts",
+		"test"
+	]
+}

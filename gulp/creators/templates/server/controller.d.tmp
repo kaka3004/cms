@@ -1,0 +1,5 @@
+import {I{{Model}}Api} from 'shared/apis/{{model}}.d';
+
+export interface I{{Model}}Controller extends I{{Model}}Api {
+	fetch(req, res, next, id);
+}

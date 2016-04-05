@@ -1,0 +1,25 @@
+import {Schema, Model, Mongoose} from 'mongoose';
+import {timestampsPlugin} from 'server/plugins/timestamps-plugin';
+import {promisifyPlugin} from 'server/plugins/promisify-plugin';
+import {I{{Model}}Document} from 'server/models/{{model}}/{{model}}-model.d';
+
+export var {{Model}}Model: Model<I{{Model}}Document>;
+
+export function configure{{Model}}Model(mongoose: Mongoose) {
+  let {{model}}Schema = new Schema({
+    {{schemaBody}}
+  });
+
+  {{model}}Schema.method('replaceAttributes', function(attributes) {
+    {{replaceAttributesBody}}
+  });
+
+  {{model}}Schema.method('updateAttributes', function(attributes) {
+    {{updateAttributesBody}}
+  });
+
+  {{model}}Schema.plugin(timestampsPlugin);
+  {{model}}Schema.plugin(promisifyPlugin);
+
+  {{Model}}Model = mongoose.model<I{{Model}}Document>('{{Model}}', {{model}}Schema); 
+}

@@ -1,0 +1,7 @@
+import {I{{Model}}} from 'shared/models/{{model}}.d';
+
+export interface I{{Model}}Repository {
+	all();
+	findById(id);
+	create(attributes: I{{Model}});
+}
