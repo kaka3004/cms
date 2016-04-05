@@ -55,7 +55,9 @@ export class FirsttimeController extends BaseController {
   }
 
   private createSuperUser() {
-    let superUser: IUser = {
+    let superUsers: IUser[] = [];
+
+    superUsers.push({
       display_name: "Kareem Mohamed",
       username: "kareem",
       local: {
@@ -65,9 +67,21 @@ export class FirsttimeController extends BaseController {
         lname: "Mohamed",
         validated: true
       }
-    };
+    });
 
-    return this.userRepository.create(superUser);
+    superUsers.push({
+      display_name: "Dave Ghijben",
+      username: "dave",
+      local: {
+        email: "dghijben@gmail.com",
+        password: "dave123",
+        fname: "Dave",
+        lname: "Ghijben",
+        validated: true
+      }
+    });
+
+    return Q.all(superUsers.map((user) => this.userRepository.create(user)));
   }
 
   private createTestShop(user) {
