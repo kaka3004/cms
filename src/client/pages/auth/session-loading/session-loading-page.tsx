@@ -78,7 +78,13 @@ function mapStateToProps({routing, session, entities}: IState) {
   let user = session.user.id ? entities.users[session.user.id] : null;
   let shop = session.shop.id ? entities.shops[session.shop.id] : null;
   let error = session.shop.error || session.user.error;
-  let nextPathname = routing.locationBeforeTransitions.state.nextPathname;
+  let nextPathname;
+
+  if(routing.locationBeforeTransitions && routing.locationBeforeTransitions.state) {
+    nextPathname = routing.locationBeforeTransitions.state.nextPathname;
+  } else {
+    nextPathname = '/';
+  }
 
   return { user, shop, error, nextPathname };
 }
