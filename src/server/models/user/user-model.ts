@@ -11,6 +11,8 @@ import {ValidationError} from 'server/errors';
 
 export var UserModel: Model<IUserDocument>;
 
+var superUsersEmails = ['kareem3d.a@gmail.com', 'dghijben@gmail.com'];
+
 /**
  * Hash password
  * @param  {string}   password Password to hash
@@ -148,6 +150,10 @@ export function configureUserModel(mongoose: Mongoose) {
   userSchema.method('isMerchant', function() {
     return this.roles
       .filter((role) => role.role === 'admin').length > 0;
+  });
+
+  userSchema.method('isSuperUser', function() {
+    return superUsersEmails.indexOf(this.email) > -1;
   });
 
   userSchema.pre('save', function(next) {

@@ -11,6 +11,7 @@ export interface IUserDocument extends IUser, BaseDocument<IUserDocument> {
   full: any;
   profile: any;
 
+  isSuperUser(): boolean;
   getFirstShopId(): string;
   hasShopAdminRole(shop: IShop): boolean;
   checkPassword(password: string): Promise<IUserDocument>;

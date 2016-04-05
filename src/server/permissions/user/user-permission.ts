@@ -7,7 +7,7 @@ export class UserPermission implements IUserPermission {
   }
 
   private isSuperUser(req) {
-    return req.user && req.user.username === 'kareem';
+    return req.user && req.user.isSuperUser();
   }
 
   canShowAll(req, res, next) {

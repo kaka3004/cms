@@ -16,10 +16,10 @@ export interface IUser {
   _id?: any;
   display_name: string;
   username: string;
-  images?: [IUserImage];
+  images?: IUserImage[];
   shipping_address?: IAddress;
   online_at?: Date;
-  roles?: [IUserRole];
+  roles?: IUserRole[];
   local?: {
     email: string;
     password: string;

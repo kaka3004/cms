@@ -18,19 +18,22 @@ export class FirsttimeController extends BaseController {
   }
 
   public setupTestShop(req, res, next) {
-    let superUser, testShop;
+    let kareemAccount, testShop;
 
-    this.createSuperUser()
+    this.createKareemAccount()
       .then((user) => {
-        superUser = user;
+        kareemAccount = user;
         return this.createTestShop(user);
       })
       .then((shop) => {
         testShop = shop;
-        this.addAdminRole(superUser, shop)
+        return this.addAdminRole(kareemAccount, shop);
+      })
+      .then(() => {
+        return this.createDaveAccount(testShop);
       })
       .then((user) => {
-        return this.successResponse(res, {user, shop: testShop});
+        return this.successResponse(res, {shop: testShop});
       })
       .then(null, next);
   }
@@ -54,8 +57,8 @@ export class FirsttimeController extends BaseController {
       .then(() => res.send(), next);
   }
 
-  private createSuperUser() {
-    let superUser: IUser = {
+  private createKareemAccount() {
+    let kareem = {
       display_name: "Kareem Mohamed",
       username: "kareem",
       local: {
@@ -67,7 +70,26 @@ export class FirsttimeController extends BaseController {
       }
     };
 
-    return this.userRepository.create(superUser);
+    return this.userRepository.create(kareem);
+  }
+
+  private createDaveAccount(shop) {
+    let dave = {
+      display_name: "Dave Ghijben",
+      username: "dave",
+      local: {
+        email: "dghijben@gmail.com",
+        password: "dave123",
+        fname: "Dave",
+        lname: "Ghijben",
+        validated: true
+      },
+      roles: [
+        {role: "admin", shop_id: shop._id}
+      ]
+    };
+
+    return this.userRepository.create(dave);
   }
 
   private createTestShop(user) {
