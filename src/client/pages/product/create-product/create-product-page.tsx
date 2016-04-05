@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {CircularProgress} from 'material-ui';
 import {kernel} from 'client/app/index';
 import {ApiErrorComponent} from 'client/components/errors/api-error/api-error-component';
-import {ProductFormComponent} from 'client/components/product/product-form/product-form-component';
+import {ProductForm2Component} from 'client/components/product/product-form-2/product-form-2-component';
 import {ProductActions} from 'client/actions/product/product-actions';
 import {CategoryActions} from 'client/actions/category/category-actions';
 import {LocationActions} from 'client/actions/location/location-actions';
@@ -49,15 +49,15 @@ export class CreateProductPage extends React.Component<IProps, any> {
     let result = (
       <div>
         {
-          this.props.isUpdating ? 
+          this.props.isUpdating ?
             <CircularProgress /> : null
         }
         {
-          this.props.error ? 
+          this.props.error ?
           <ApiErrorComponent
             error={this.props.error}/> : null
         }
-        <ProductFormComponent
+        <ProductForm2Component
           categories={this.props.categories}
           onSave={(data) => this.saveProduct(data)} />
       </div>

@@ -31,7 +31,7 @@ function getProcessEnv() {
 module.exports = {
   devtool: 'source-map',
   entry: [
-    './src/server/index.ts'
+    path.join(__dirname, './src/server/index.ts')
   ],
   target: 'node',
   output: {
