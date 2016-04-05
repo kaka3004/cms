@@ -11,7 +11,7 @@ export interface ICategory {
   slug: string;
   status: "disabled" | "enabled";
   description: string;
-  images: [ICategoryImage];
+  images: ICategoryImage[];
   created_at: Date;
   updated_at: Date;
 }
