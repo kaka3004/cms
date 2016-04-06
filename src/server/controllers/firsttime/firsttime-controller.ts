@@ -20,7 +20,13 @@ export class FirsttimeController extends BaseController {
   public setupTestShop(req, res, next) {
     let kareemAccount, testShop;
 
-    this.createKareemAccount()
+    this.userRepository.find({})
+      .then((users) => {
+        if(users.length > 0 ) {
+          throw new ForbiddenError("Database already seeded!");
+        }
+        return this.createKareemAccount()
+      })
       .then((user) => {
         kareemAccount = user;
         return this.createTestShop(user);
@@ -32,10 +38,7 @@ export class FirsttimeController extends BaseController {
       .then(() => {
         return this.createDaveAccount(testShop);
       })
-      .then((user) => {
-        return this.successResponse(res, {shop: testShop});
-      })
-      .then(null, next);
+      .then(() => next(), next);
   }
 
   public setupCategories(req, res, next) {
@@ -54,7 +57,7 @@ export class FirsttimeController extends BaseController {
 
         return Q.all(createAllCategories());
       })
-      .then(() => res.send(), next);
+      .then(() => next(), next);
   }
 
   private createKareemAccount() {
